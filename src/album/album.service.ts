@@ -25,10 +25,6 @@ export class AlbumService {
   ) {}
 
   create(createAlbumDto: CreateAlbumDto) {
-    // if (!createAlbumDto.name || !createAlbumDto.year) {
-    //   throw new BadRequestException('Body does not contain required fields');
-    // }
-
     const newAlbum: Album = {
       id: uuidv4(),
       ...createAlbumDto,
