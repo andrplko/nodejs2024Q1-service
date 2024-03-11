@@ -14,10 +14,6 @@ export class UserService {
   private users: User[] = [];
 
   create(createUserDto: CreateUserDto) {
-    if (!createUserDto.login || !createUserDto.password) {
-      throw new BadRequestException('Body does not contain required fields');
-    }
-
     const newUser: User = new User({
       ...createUserDto,
       id: uuidv4(),
