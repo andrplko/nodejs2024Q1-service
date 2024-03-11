@@ -65,7 +65,7 @@ To run only specific test suite with authorization
 
 ```
 npm run test:auth -- <path to suite>
-```xw
+```
 
 ### Auto-fix and format
 
