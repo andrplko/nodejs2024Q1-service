@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 import { Artist } from './entities/artist.entity';
@@ -30,12 +29,7 @@ export class ArtistService {
   ) {}
 
   async create(createArtistDto: CreateArtistDto): Promise<Artist> {
-    const newArtist: Artist = {
-      id: uuidv4(),
-      ...createArtistDto,
-    };
-
-    return this.artistRepository.save(newArtist);
+    return this.artistRepository.save(createArtistDto);
   }
 
   async findAll(): Promise<Artist[]> {

@@ -4,7 +4,6 @@ import {
   NotFoundException,
   forwardRef,
 } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateAlbumDto } from './dto/create-album.dto';
@@ -26,16 +25,11 @@ export class AlbumService {
   ) {}
 
   async create(createAlbumDto: CreateAlbumDto): Promise<Album> {
-    const newAlbum: Album = {
-      id: uuidv4(),
-      ...createAlbumDto,
-    };
-
-    return this.albumRepository.save(newAlbum);
+    return this.albumRepository.save(createAlbumDto);
   }
 
   async findAll(): Promise<Album[]> {
-    return this.albumRepository.find();
+    return this.albumRepository.find({ relations: ['artist'] });
   }
 
   async findOne(id: string): Promise<Album> {

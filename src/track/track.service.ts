@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { Track } from './entities/track.entity';
@@ -22,16 +21,11 @@ export class TrackService {
   ) {}
 
   async create(createTrackDto: CreateTrackDto) {
-    const newTrack: Track = {
-      id: uuidv4(),
-      ...createTrackDto,
-    };
-
-    return this.trackRepository.save(newTrack);
+    return this.trackRepository.save(createTrackDto);
   }
 
   async findAll() {
-    return this.trackRepository.find();
+    return this.trackRepository.find({ relations: ['album', 'artist'] });
   }
 
   async findOne(id: string) {
